@@ -1,32 +1,40 @@
 'use strict';
 
 // 必要なモジュールを読み込み
-var app = require('app');
-var BrowserWindow = require('browser-window');
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
-// エラーをターミナルに出力
-require('crash-reporter').start();
+const path = require("path");
+const url = require("url");
+const fs = require("fs");
 
-var mainWindow = null;
+let mainWindow;
 
 // アプリを閉じた時の処理
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
   if (process.platform != 'darwin') {
     app.quit();
   }
 });
 
 // アプリが起動した時の処理
-app.on('ready', function() {
+app.on('ready', () => {
 
   // アプリ起動時の横幅・高さを設定
   mainWindow = new BrowserWindow({
-    width: 1200,
+    width: 1024,
     height: 800
   });
 
   // アプリ本体を読み込み
-  mainWindow.loadUrl('file://'+ __dirname +'/app/index.html');
+  mainWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, '/app/index.html'),
+      protocol: 'file:',
+      slashes: true
+    })
+  );
 
   // アプリを閉じた時に初期化
   mainWindow.on('closed', function() {

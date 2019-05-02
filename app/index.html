@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>MarkDown Visual Editor</title>
     <style>
-        html, body, #mdve {
+        html, body, #main {
             margin: 0;
             height: 100%;
             font-family: 'Helvetica Neue', Arial, sans-serif;
             color: #333;
         }
 
-        textarea, #mdve div {
+        textarea, #main div {
             display: inline-block;
             width: 49%;
             height: 100%;
@@ -39,9 +39,9 @@
     </style>
 </head>
 <body>
-<div id="mdve">
+<div id="main">
     <textarea v-model="input" debounce="300"></textarea>
-    <div v-html="input | marked"></div>
+    <div v-html="convertMarkdown"></div>
 </div>
 <script src="bundle.js"></script>
 </body>

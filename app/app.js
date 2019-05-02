@@ -1,12 +1,14 @@
-var Vue = require('vue');
-var marked = require('marked');
+const Vue = require('vue');
+const marked = require('marked');
 
-var mdve = new Vue({
-  el: '#mdve',
+new Vue({
+  el: '#main',
   data: {
     input: '# edit here!'
   },
-  filters: {
-    marked: marked
+  computed: {
+    convertMarkdown: function () {
+      return marked(this.input, {sanitize: true});
+    }
   }
 });
